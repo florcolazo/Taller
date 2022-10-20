@@ -1,3 +1,5 @@
+from itertools import product
+from unicodedata import category
 from api_config import db
 from graphene import (
     ObjectType,
@@ -7,27 +9,27 @@ from graphene import (
     Field,
 )
 from .objects import (
-    Funko,
+    Producto,
     User,
 )
-from .funko import Funko as FunkoModel
-from .user import User as UserModel
+from .product import Product as ProductModel
+from .user import User as ProdcutModel
 
 
-class createFunko(Mutation):
+class createProduct(Mutation):
     class Arguments:
         number = Int(required=True)
         name = String(required=True)
-        collection = String(required=True)
+        category = String(required=True)
 
-    funko = Field(lambda: Funko)
+    product = Field(lambda: Producto)
 
     def mutate(self, info, number, name, collection):
-        funko = FunkoModel(number=number, name=name, collection=collection)
-        db.session.add(funko)
+        funko = ProductModel(number=number, name=name, category=category)
+        db.session.add(product)
         db.session.commit()
 
-        return createFunko(funko=funko)
+        return createProduct(product=product)
 
 
 class createUser(Mutation):
@@ -49,19 +51,19 @@ class updateUser(Mutation):
         id = Int(required=True)
         first_name = String()
         last_name = String()
-        funko_id = Int()
+        product_id = Int()
 
     user = Field(lambda: User)
 
-    def mutate(self, info, id, first_name=None, last_name=None, funko_id=None):
+    def mutate(self, info, id, first_name=None, last_name=None, product_id=None):
         user = UserModel.query.get(id)
         if user:
             if first_name:
                 user.first_name = first_name
             if last_name:
                 user.last_name = last_name
-            if funko_id:
-                user.funko_id = funko_id
+            if product_id:
+                user.product_id = product_id
             db.session.add(user)
             db.session.commit()
 
@@ -82,7 +84,7 @@ class deleteUser(Mutation):
         return deleteUser(user=user)
 
 class Mutation(ObjectType):
-    create_funko = createFunko.Field()
+    create_product= createProduct.Field()
     create_user = createUser.Field()
     update_user = updateUser.Field()
     delete_user = deleteUser.Field()

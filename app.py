@@ -3,7 +3,15 @@
 #postman-api backaup-descargar GET LOCAL HOST 50000-CADA DATO ES UNA TUPLA
 from flask import Flask
 
-app = Flask
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Hello, Flask!"
+
+
+
+
 from api_config import (
     app,
     db,
@@ -22,4 +30,4 @@ app.add_url_rule(
 )
 
 if __name__ == "__main__":
-    app.run(port=5000, host='localhost') 
+    app.run(port=5000, host='localhost')
