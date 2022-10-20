@@ -1,4 +1,7 @@
 from itertools import product
+from numbers import Real
+from tokenize import Double
+from typing_extensions import Required
 from unicodedata import category
 from api_config import db
 from graphene import (
@@ -20,7 +23,10 @@ class createProduct(Mutation):
     class Arguments:
         number = Int(required=True)
         name = String(required=True)
-        category = String(required=True)
+        precio = float(required=True)
+        stock = Int(required=True)
+        descripcion = String (required=True)
+        categoria = String(required=True)
 
     product = Field(lambda: Producto)
 
