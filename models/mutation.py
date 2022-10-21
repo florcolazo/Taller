@@ -30,8 +30,8 @@ class createProduct(Mutation):
 
     product = Field(lambda: Producto)
 
-    def mutate(self, info, number, name, collection):
-        funko = ProductModel(number=number, name=name, category=category)
+    def mutate(self, info, number, name, precio, stock, descripcion, categoria):
+        funko = ProductModel(number=number, name=name, precio=precio, stock=stock, descripcion=descripcion, categoria=categoria)
         db.session.add(product)
         db.session.commit()
 
