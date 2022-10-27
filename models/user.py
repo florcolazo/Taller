@@ -3,12 +3,19 @@ from api_config import db
 
 class User(db.Model):
     __tablename__ = "user"
-    id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(20))
-    last_name = db.Column(db.String(20))
-    user_id = db.Column(db.Integer, db.ForeignKey("product.id"))
+    dni = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(20))
+    apellido = db.Column(db.String(20))
+    telefono = db.Column(db.Integer)
+    correoelectronico = db.Column(db.String(20))
+    domicilio = db.Column(db.String(20))
+    beneficiario = db.Column(db.boolean)
+    tipo = db.Column(db.boolean)
+
+
+    
     user = db.relationship("Usuario")
-    user_id = db.Column(db.Integer, db.ForeignKey("factura.id"))
-    user_id = db.Column(db.Integer, db.ForeignKey("pet.id"))
-    user_id = db.Column(db.Integer, db.ForeignKey("preguntas.id"))
+    idFactura = db.Column(db.Integer, db.ForeignKey("factura.id"))
+    idMascota = db.Column(db.Integer, db.ForeignKey("pet.id"))
+    idPreguntas = db.Column(db.Integer, db.ForeignKey("preguntas.id"))
     
